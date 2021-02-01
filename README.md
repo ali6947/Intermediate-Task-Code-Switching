@@ -3,7 +3,7 @@ This is the repo for the experiments mentioned in the paper
 
 ## Datasets
 The datasets required for the experiments can be found at the following link: [Data](https://drive.google.com/file/d/1lafT_uN-gpQ3OzproZQ5zihQBwxV1-pm/view?usp=sharing)
-This includes the following datasets in the given structure
+This includes the following datasets in the given structure. Place the final_Data folder beside final_Code folder and train_final.sh
 ```
 final_Data
   ├── MLM
