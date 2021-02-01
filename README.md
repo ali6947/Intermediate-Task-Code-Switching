@@ -55,8 +55,7 @@ The following intermediate routines are available
 Also available are the methods for finetuning the model on GLUECoS NLI and QA benchmarks
 
 ## Training requirements
-The code uses pytorch(v)(add version)
-The requirements are listed in the file `Code/requirements.txt`. They can be installed via 
+The requirements for running the code are listed in the file `Code/requirements.txt`. They can be installed via 
     ```
     pip install -r Code/requirements.txt
     ```
