@@ -70,9 +70,9 @@ logger = logging.getLogger(__name__)
 
 
 MODEL_CLASSES = {
-    "bert": (BertConfig, BertForSequenceClassification, BertTokenizer),
-    "xlm": (XLMConfig, XLMForSequenceClassification, XLMTokenizer),
-    "xlm-roberta": (XLMRobertaConfig, XLMRobertaForSequenceClassification, XLMRobertaTokenizer),
+    "bert": (BertConfig, BertForQuestionAnswering, BertTokenizer),
+    # "xlm": (XLMConfig, XLMForSequenceClassification, XLMTokenizer),
+    "xlm-roberta": (XLMRobertaConfig, RobertaForQuestionAnswering, XLMRobertaTokenizer),
     # "joeddav-xlm-roberta-large-xnli":()
 }
 
@@ -619,7 +619,7 @@ def load_and_cache_examples_nli(args, task, tokenizer, evaluate=False):
             str(args.train_language if (not evaluate and args.train_language is not None) else args.language),
         ),
     )
-    if os.path.exists(cached_features_file) and not args.overwrite_cache and evaluate==False:
+    if os.path.exists(cached_features_file) and not args.overwrite_cache and False:
         logger.info("Loading features from cached file %s", cached_features_file)
         features1 = torch.load(cached_features_file)
     else:
@@ -656,7 +656,7 @@ def load_and_cache_examples_nli(args, task, tokenizer, evaluate=False):
     else:
         raise ValueError("No other `output_mode` for XNLI.")
 
-    if os.path.exists(cached_features_file_rom) and not args.overwrite_cache and evaluate==False:
+    if os.path.exists(cached_features_file_rom) and not args.overwrite_cache and False:
         logger.info("Loading features from cached file %s", cached_features_file_rom)
         features2 = torch.load(cached_features_file_rom)
 
@@ -715,7 +715,7 @@ def load_and_cache_examples_squad(args, tokenizer, evaluate=False, output_exampl
     )
 
     # Init features and dataset from cache if it exists
-    if (os.path.exists(qa_cached_features_file) and not args.overwrite_cache and evaluate==False):
+    if (os.path.exists(qa_cached_features_file) and not args.overwrite_cache and False):
         logger.info("Loading features from cached file %s", qa_cached_features_file)
         features_and_dataset = torch.load(qa_cached_features_file)
         qa_features, qa_dataset, qa_examples = (
@@ -1011,7 +1011,7 @@ def main():
     if args.local_rank == -1 or args.no_cuda:
         device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
         args.n_gpu = 0 if args.no_cuda else torch.cuda.device_count()
-        print("&&& ",end=' ')
+        # print("&&& ",end=' ')
        # print(args.n_gpu)
     else:  # Initializes the distributed backend which will take care of sychronizing nodes/GPUs
         torch.cuda.set_device(args.local_rank)
@@ -1066,7 +1066,7 @@ def main():
         do_lower_case=args.do_lower_case,
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
-    model = RobertaForQuestionAnswering.from_pretrained(
+    model = model_class.from_pretrained(
         args.model_name_or_path,
         #'./qa_bert_romanized_snap/pytorch_model.bin',
         from_tf=bool(".ckpt" in args.model_name_or_path),

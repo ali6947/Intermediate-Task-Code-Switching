@@ -9,8 +9,8 @@ DATA_DIR=${4:-"$REPO/final_Data"}
 ROMA="romanised"
 OUT_DIR=${5:-"$REPO/Results"}
 
-export NVIDIA_VISIBLE_DEVICES=0
-export CUDA_VISIBLE_DEVICES=0
+export NVIDIA_VISIBLE_DEVICES=2
+export CUDA_VISIBLE_DEVICES=2
 
 
 EPOCH=4

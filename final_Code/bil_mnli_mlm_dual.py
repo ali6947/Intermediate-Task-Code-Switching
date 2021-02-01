@@ -456,7 +456,7 @@ def load_and_cache_examples(args, task, tokenizer, evaluate=False):
             str(args.train_language if (not evaluate and args.train_language is not None) else args.language),
         ),
     )
-    if os.path.exists(cached_features_file) and not args.overwrite_cache:
+    if os.path.exists(cached_features_file) and not args.overwrite_cache and False:
         logger.info("Loading features from cached file %s", cached_features_file)
         features = torch.load(cached_features_file)
     else:
